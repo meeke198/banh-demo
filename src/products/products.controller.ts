@@ -8,20 +8,13 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { Product } from './products.entity';
 @Controller('products')
 export class ProductsControler {
   constructor(private readonly productsService: ProductsService) {}
   @Post()
-  createProduct(
-    @Body('title') productTitle: string,
-    @Body('description') productDescription: string,
-    @Body('price') productPrice: number,
-  ): any {
-    const newProduct = this.productsService.addProduct(
-      productTitle,
-      productDescription,
-      productPrice,
-    );
+  createProduct(@Body('product') product: Product): Product {
+    const newProduct = this.productsService.addProduct(product);
     return newProduct;
   }
   @Get()
@@ -29,12 +22,12 @@ export class ProductsControler {
     return this.productsService.getAllProducts();
   }
   @Get(':id')
-  getProduct(@Param('id') prodId: string) {
-    return this.productsService.findSinggleProduct(prodId);
+  getProduct(@Param('id') prodId: number) {
+    return this.productsService.findSingleProduct(prodId);
   }
   @Patch(':id')
   updateProduct(
-    @Body('id') productId: string,
+    @Body('id') productId: number,
     @Body('title') productTitle: string,
     @Body('description') productDescription: string,
     @Body('price') productPrice: number,
@@ -48,7 +41,7 @@ export class ProductsControler {
     return updatedProduct;
   }
   @Delete(':id')
-  removeProduct(@Param('id') prodId: string) {
-    return this.productsService.deleteProduct(prodId);
+  deleteProduct(@Param('id') prodId: number) {
+    return this.productsService.remove(prodId);
   }
 }
