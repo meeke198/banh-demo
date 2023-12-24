@@ -29,7 +29,7 @@ export class ProductsService {
     // const productId = Math.random().toString();
     const newProduct = new Product();
     newProduct.name = product.name;
-    newProduct.quantity = product.quantity;
+    newProduct.inventory = product.inventory;
     newProduct.description = product.description;
     newProduct.categoryId = product.categoryId;
     newProduct.price = product.price;

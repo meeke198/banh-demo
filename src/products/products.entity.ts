@@ -26,7 +26,7 @@ export class Product {
   categoryId: number;
 
   @Column({ nullable: false })
-  quantity: number;
+  inventory: number;
 
   @Column({ nullable: false, length: 300 })
   description: string;
@@ -36,6 +36,9 @@ export class Product {
 
   @Column({ nullable: true })
   discount: number;
+
+  @Column({ nullable: true })
+  sold: number;
 
   @OneToMany(() => Photo, (photo) => photo.product)
   photos: Photo[];

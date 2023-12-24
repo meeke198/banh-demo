@@ -2,10 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Base } from '../common/base.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+  JoinColumn
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Role } from '../roles/roles.entity';
-import { Photo } from '../photos/photo.entity'
+import { Photo } from '../photos/photo.entity';
+import { Cart } from '../carts/carts.entity';
 
 @Entity()
 export class User extends Base {
@@ -35,6 +43,10 @@ export class User extends Base {
 
   @OneToMany(() => Role, (roles) => roles.id)
   roles: Role[];
+
+  @OneToOne(() => Cart)
+  @JoinColumn()
+  cart: Cart;
 }
 // (type) => Role to explicitly indicate the type of the target entity.
 // Role entity that represents the relationship with the User entity. In this case, it uses roles.id to indicate that the Role entity has a property named id that establishes the relationship.
